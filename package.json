@@ -8,9 +8,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/use-form.js",
-      "require": "./dist/use-form.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/use-form.umd.js"
     }
   },
   "files": [
@@ -19,7 +19,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly",
-    "lint": "eslint . --ext .vue,.js,.ts"
+    "check:duplication": "jscpd",
+    "lint": "eslint . --ext .vue,.js,.ts",
+    "test": "vitest -c vitest.config.ts",
+    "test:coverage": "vitest run --coverage -c vitest.config.ts",
+    "quality:gate": "npm run lint && npm run test:coverage && npm run check:duplication"
   },
   "keywords": [
     "vue",
@@ -43,9 +47,18 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.9",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
     "@vitejs/plugin-vue": "^5.0.5",
+    "@vitest/coverage-v8": "^4.0.6",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.5.1",
+    "jscpd": "^4.0.5",
     "typescript": "^5.5.2",
+    "typescript-eslint": "^8.46.3",
     "vite": "^5.3.1",
+    "vitest": "^4.0.6",
     "vue": "^3.4.30",
     "vue-tsc": "^2.0.24"
   }

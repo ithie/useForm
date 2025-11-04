@@ -1,0 +1,56 @@
+name: Nightly Build & Publish
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  publish-nightly:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install Dependencies (NPM CI)
+        run: npm ci
+
+      - name: Run Quality:Gate
+        run: npm run quality:gate
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Calculate Nightly Version
+        id: version
+        run: |
+          # Generiert eine eindeutige Nightly-Version (z.B. 0.0.1-nightly.20251104)
+          DATE=$(date +%Y%m%d)
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          NIGHTLY_VERSION="${BASE_VERSION}-nightly.${DATE}"
+          echo "nightly_version=${NIGHTLY_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Update package.json to Nightly Version
+        run: npm version ${{ steps.version.outputs.nightly_version }} --no-git-tag-version
+
+      - name: Authenticate and Publish to NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+          token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM (as 'next' tag)
+        run: npm publish --access public --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

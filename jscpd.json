@@ -1,0 +1,9 @@
+{
+  "formats": ["javascript", "typescript"],
+  "minLines": 5,
+  "minTokens": 70,
+  "threshold": 1,
+  "reporters": ["console"],
+  "absolute": true,
+  "ignore": ["**/node_modules/**", "**/dist/**", "**/*.spec.ts", "**/*.config.ts", "**/*.d.ts"]
+}
