@@ -1,0 +1,52 @@
+{
+  "name": "@ithie/use-form",
+  "version": "0.0.1",
+  "description": "A simple composable for vue3 to handle forms and the according data",
+  "type": "module",
+  "main": "./dist/use-form.umd.js",
+  "module": "./dist/use-form.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/use-form.js",
+      "require": "./dist/use-form.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "lint": "eslint . --ext .vue,.js,.ts"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "composable",
+    "form",
+    "useForm"
+  ],
+  "author": "ithie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ithie/use-form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ithie/use-form/issues"
+  },
+  "homepage": "https://github.com/ithie/use-form#readme",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.1",
+    "vue": "^3.4.30",
+    "vue-tsc": "^2.0.24"
+  }
+}
