@@ -19,8 +19,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly",
-    "check:duplication": "jscpd",
-    "lint": "eslint . --ext .vue,.js,.ts",
+    "check:duplication": "jscpd src",
+    "lint": "eslint ./src --ext .vue,.js,.ts",
     "test": "vitest -c vitest.config.ts",
     "test:coverage": "vitest run --coverage -c vitest.config.ts",
     "quality:gate": "npm run lint && npm run test:coverage && npm run check:duplication"
@@ -61,5 +61,22 @@
     "vitest": "^4.0.6",
     "vue": "^3.4.30",
     "vue-tsc": "^2.0.24"
+  },
+  "jscpd": {
+    "minLines": 5,
+    "minTokens": 70,
+    "threshold": 1,
+    "reporters": [
+      "console"
+    ],
+    "absolute": true,
+    "ignore": [
+      "**/coverage/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/*.spec.ts",
+      "**/*.config.ts",
+      "**/*.d.ts"
+    ]
   }
 }
