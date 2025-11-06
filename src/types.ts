@@ -1,3 +1,2 @@
-export default interface FormData {
-  dataKey: string
-}
+export * from './types/UseFormData'
+export * from './types/InitFieldData'
